@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>創成プロジェクト A1班</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="hero">
+    <h1>創成プロジェクト発表　A1班</h1>
+    <h2>制約を超えろ。次世代モビリティの創造。</h2>
+    <p>軽量、低コスト、そして成功率90%以上を目指す高精度な自律走行を実現する。</p>
+  </header>
+
+  <nav class="sticky-nav">
+    <div class="tabs-container">
+      <a href="#goals" class="nav-tab-button">プロジェクト目標</a>
+      <a href="#overview" class="nav-tab-button">技術概要</a>
+      <a href="#process" class="nav-tab-button">製作ヒストリー</a>
+      <a href="#ideas" class="nav-tab-button">工夫点</a>
+      <a href="#team-space" class="nav-tab-button">活動記録</a>
+    </div>
+  </nav>
+
+  <!-- 各セクションは省略可能。ここでは goals を例示 -->
+  <section id="goals" class="section dark-bg">
+    <h3 class="animate-on-scroll">🏆 プロジェクト目標</h3>
+    <div class="goal-list-container">
+      <div class="goal-item-small animate-on-scroll">
+        <span class="goal-number-small">01</span>
+        <h4>軽量化</h4>
+        <p>車体の軽量化を追求する。</p>
+      </div>
+      <!-- 他の目標も同様に追加 -->
+    </div>
+  </section>
+
+  <!-- 活動記録セクション（認証付き） -->
+  <section id="team-space" class="section dark-bg">
+    <h3 class="animate-on-scroll">📝 活動記録</h3>
+    <div id="log-space-container" class="team-content-area animate-on-scroll">
+      <!-- Firebase認証後にJSで内容が挿入される -->
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 創成プロジェクト A1班. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="auth.js"></script>
+  <script src="scroll.js"></script>
+</body>
+</html>

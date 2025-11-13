@@ -1,0 +1,444 @@
+/*
+ * ファイル名: style.css
+ * 目的: 元のCSSセレクタを維持しつつ、CSS変数で管理性を向上
+ */
+
+/* ==========================================================================
+    1. カスタムプロパティ (変数) 定義
+    ========================================================================== */
+:root {
+    /* カラーパレット */
+    --color-primary: #007aff; /* Blue */
+    --color-primary-hover: #006ddf;
+    --color-text-dark: #1d1d1f;
+    --color-text-light: #ffffff;
+    --color-background-light: #ffffff;
+    --color-background-dark: #000000;
+    --color-background-footer: #f5f5f7;
+    --color-secondary-text: #6e6e73;
+    --color-card-dark: #1d1d1f;
+    --color-placeholder-bg: #e5e5e5;
+    --color-hero-overlay: rgba(0, 0, 0, 0.4);
+    --color-hero-text-secondary: rgba(255, 255, 255, 0.8);
+    --color-dark-bg-heading: #f5f5f7;
+
+    /* スペーシング */
+    --space-section-padding: 80px;
+    --space-page-padding-horizontal: 5%;
+    --space-title-margin-bottom: 60px;
+    --space-grid-gap: 30px;
+}
+
+/* ==========================================================================
+    2. ベーススタイル
+    ========================================================================== */
+
+/* 基本リセットとフォント設定 */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    background-color: var(--color-background-light);
+}
+
+/* --- セクション共通スタイル --- */
+.section {
+    padding: var(--space-section-padding) var(--space-page-padding-horizontal);
+    text-align: center;
+}
+
+.section h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-title-margin-bottom);
+}
+
+.light-bg {
+    background-color: var(--color-background-light);
+}
+
+.dark-bg {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+}
+
+.dark-bg h3 {
+    color: var(--color-dark-bg-heading);
+}
+
+/* ==========================================================================
+    3. ヒーローセクション
+    ========================================================================== */
+.hero {
+    /* ★ 背景画像を '3.jpg' に変更済み ★ */
+    background-image: url('./3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    padding: 150px 5% 100px;
+    text-align: center;
+    min-height: 70vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 背景画像の上に暗いオーバーレイをかけ、テキストの視認性を高める */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-hero-overlay);
+    z-index: 1;
+}
+
+/* ヒーロー内のテキストとボタンをオーバーレイより手前に表示 */
+.hero h1, .hero h2, .hero p, .hero .hero-tabs-container {
+    color: var(--color-text-light);
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: var(--color-hero-text-secondary);
+}
+
+/* --- ヒーロータブナビゲーション (青枠の近代的なデザイン) --- */
+.hero-tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* タブ間のスペース */
+    margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 5%;
+}
+
+.hero-tab-button {
+    flex: 1;
+    min-width: 120px;
+    /* 背景を透明にし、青い枠線を強調 */
+    background-color: rgba(255, 255, 255, 0.05); /* ほとんど透明な背景 */
+    backdrop-filter: blur(5px);
+    color: var(--color-text-light);
+    /* 青枠に変更 */
+    border: 2px solid var(--color-primary); 
+    padding: 12px 15px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background-color 0.3s, transform 0.2s; /* ホバー時に変化をつける */
+}
+
+.hero-tab-button:hover {
+    background-color: var(--color-primary); /* ホバーで青で塗りつぶす */
+    transform: translateY(-2px); /* 少し浮き上がるエフェクト */
+}
+
+
+/* ==========================================================================
+    4. プロジェクト目標グリッド (7項目対応のための新規スタイル)
+    ========================================================================== */
+/* 元のgoal-gridは削除し、目標7項目のための新しいコンテナを用意 */
+.goal-list-container {
+    display: grid;
+    /* PCでは3列のグリッドにする */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.goal-item-small {
+    /* ★★★ 枠で囲むためのデザイン変更 ★★★ */
+    padding: 25px; /* パディングを増やして見やすく */
+    border-radius: 10px;
+    background-color: var(--color-card-dark);
+    border: 1px solid var(--color-primary); /* 青い枠線を追加 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 影をつけて立体感を出す */
+    transition: transform 0.3s;
+}
+
+.goal-item-small:hover {
+    transform: translateY(-5px); /* ホバーで少し持ち上げる */
+}
+
+.goal-number-small {
+    /* ★★★ 文字サイズ調整 ★★★ */
+    font-size: 2.2rem; /* 少し大きく */
+    font-weight: 700;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.goal-item-small h4 {
+    /* ★★★ 文字サイズ調整 ★★★ */
+    font-size: 1.3rem; /* 見やすいサイズに */
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--color-dark-bg-heading);
+}
+
+.goal-item-small p {
+    font-size: 1rem; /* 見やすいサイズに */
+    color: var(--color-hero-text-secondary);
+}
+
+/* 旧 goal-grid に依存していたスタイルを削除 */
+.goal-grid {
+    display: none;
+}
+
+
+/* ==========================================================================
+    5. 技術概要セクション
+    ========================================================================== */
+.overview-content {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    text-align: left;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tech-spec {
+    flex: 1;
+}
+
+.tech-detail {
+    flex: 2;
+}
+
+.tech-detail p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.tech-spec ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tech-spec li {
+    font-size: 1.1rem;
+    padding: 8px 0;
+}
+
+.diagram-placeholder {
+    height: 250px;
+    background-color: var(--color-placeholder-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary-text);
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* 核心技術セクションのアニメーション初期状態 */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.6s ease-out;
+}
+
+/* 表示されたときにフェードイン */
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ==========================================================================
+    6. 製作プロセス (ヒストリー)
+    ========================================================================== */
+/* 新しいヒストリーレイアウトに対応 */
+.process-preamble {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+}
+
+.process-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    
+    /* ★★★ デスクトップでも縦並びに固定 ★★★ */
+    flex-direction: column; 
+    gap: 50px; /* 縦並びのステップ間のスペースを確保 */
+}
+
+/* タイムラインの各ステップ */
+.process-container .step {
+    flex: 1;
+    padding: 0 0 0 40px; /* 左側にスペースを確保 */
+    max-width: 700px; /* ステップの幅を制限して読みやすく */
+    margin: 0 auto; /* 中央寄せ */
+    position: relative;
+    
+    /* 縦並びのタイムライン装飾 */
+    border-top: none; 
+    border-left: 3px solid var(--color-primary);
+}
+
+/* タイムライン上の点 (Circle) */
+.process-container .step:before {
+    content: '';
+    position: absolute;
+    left: -8px; /* タイムライン上に配置 */
+    top: 0;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+}
+
+.process-container .step h4 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.step-number {
+    display: block;
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.major-change-note, .major-change-reason {
+    color: #ff9500; /* 方針転換の注意色 */
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+/* 画像/動画のためのプレースホルダー */
+.media-placeholder {
+    margin-top: 20px;
+    height: 300px; /* 画像/動画表示のための高さを確保 */
+    background-color: var(--color-card-dark); 
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-hero-text-secondary);
+    font-style: italic;
+    font-size: 1.2rem;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+}
+
+/* ----------------------------------------------------
+ * ★追加：挿入された画像/動画のスタイル★
+ * ---------------------------------------------------- */
+.process-media {
+    max-width: 100%; /* 親要素の幅を超えないようにする */
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px; /* 画像間のスペース確保 */
+    border-radius: 10px;
+    /* 画像と動画に影をつけて、コンテンツとして目立たせる */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+    /* video要素の幅を確保 */
+    width: 100%; 
+}
+
+
+/* ==========================================================================
+    7. フッター
+    ========================================================================== */
+footer {
+    padding: 20px var(--space-page-padding-horizontal);
+    background-color: var(--color-background-footer);
+    color: var(--color-secondary-text);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+    8. レスポンシブ対応 (モバイルフレンドリー)
+    ========================================================================== */
+@media (max-width: 900px) {
+    /* 900px以下で目標グリッドを2列にする */
+    .goal-list-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    /* ヒーロータブは縦積みに変更 */
+    .hero-tabs-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    /* ヒーロータブのモバイルでのデザイン調整 */
+    .hero-tab-button {
+        /* モバイルでは枠を少し細くしても良い */
+        border-width: 1px;
+    }
+    
+    /* 目標グリッドは1列にする */
+    .goal-list-container {
+        grid-template-columns: 1fr;
+    }
+
+    .goal-item-small, .process-container .step {
+        max-width: none;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    /* プロセスステップの強調表示はPCと共通 (左ボーダー) */
+    .process-container .step {
+        padding-left: 30px;
+    }
+
+    .overview-content {
+        flex-direction: column;
+    }
+
+    .tech-spec,
+    .tech-detail {
+        width: 100%;
+    }
+}
+
+
