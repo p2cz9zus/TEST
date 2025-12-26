@@ -106,6 +106,17 @@
         }
         .viewer img { position: absolute; height: 90%; opacity: 0; transition: opacity 0.1s; pointer-events: none; }
         .viewer img.active { opacity: 1; }
+        .viewer {
+    /* 既存のスタイルに以下を追加 */
+    touch-action: none; /* ブラウザ標準のスクロールをこのエリアだけ無効化 */
+    user-select: none;  /* テキスト選択を防ぐ */
+    -webkit-user-drag: none; /* 画像のドラッグを防ぐ */
+}
+
+.viewer img {
+    /* 既存のスタイルに以下を追加 */
+    pointer-events: none; /* 画像自体がマウスイベントを遮らないようにする */
+}
 
         /* 製作ヒストリー */
         .process-container { max-width: 900px; margin: 0 auto; position: relative; }
@@ -529,4 +540,5 @@ void loop() {
 
 </body>
 </html>
+
 
