@@ -507,23 +507,73 @@ void loop() {
 
     // 360 ビューア
     document.addEventListener('DOMContentLoaded', () => {
-        const viewer = document.getElementById('viewer');
-        const images = viewer.querySelectorAll('img');
-        let current = 0;
-        let startX = 0;
-        let isDragging = false;
+    const viewer = document.getElementById('viewer');
+    if (!viewer) return;
 
-        viewer.addEventListener('mousedown', (e) => { isDragging = true; startX = e.clientX; });
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const diff = e.clientX - startX;
-            if (Math.abs(diff) > 20) {
-                images[current].classList.remove('active');
-                current = diff > 0 ? (current + 1) % images.length : (current - 1 + images.length) % images.length;
-                images[current].classList.add('active');
-                startX = e.clientX;
-            }
+    const images = viewer.querySelectorAll('img');
+    const totalImages = images.length;
+    let current = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startImageIndex = 0;
+
+    // 感度調整（数値が小さいほど少しの移動で回転します）
+    const sensitivity = 10; 
+
+    // 画像を切り替える関数
+    function showImage(index) {
+        images[current].classList.remove('active');
+        // ループ処理（負の数にも対応）
+        current = (index % totalImages + totalImages) % totalImages;
+        images[current].classList.add('active');
+    }
+
+    // イベント開始（マウス・タッチ共通）
+    function handleStart(e) {
+        isDragging = true;
+        // タッチかマウスか判定してX座標を取得
+        startX = e.pageX || e.touches[0].pageX;
+        startImageIndex = current;
+        viewer.style.cursor = 'grabbing';
+    }
+
+    // イベント中（マウス・タッチ共通）
+    function handleMove(e) {
+        if (!isDragging) return;
+
+        // タッチ操作時の画面スクロールを防止
+        if (e.type === 'touchmove') {
+            e.preventDefault();
+        }
+
+        const currentX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
+        const diffX = currentX - startX;
+        
+        // 移動距離に応じて表示する画像のインデックスを計算
+        const imageDelta = Math.floor(diffX / sensitivity);
+        const nextIndex = startImageIndex - imageDelta;
+
+        if (nextIndex !== current) {
+            showImage(nextIndex);
+        }
+    }
+
+    // イベント終了（マウス・タッチ共通）
+    function handleEnd() {
+        isDragging = false;
+        viewer.style.cursor = 'ew-resize';
+    }
+
+    // マウスイベントの登録
+    viewer.addEventListener('mousedown', handleStart);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+
+    // タッチイベントの登録（スマホ・タブレット用）
+    viewer.addEventListener('touchstart', handleStart, { passive: false });
+    viewer.addEventListener('touchmove', handleMove, { passive: false });
+    viewer.addEventListener('touchend', handleEnd);
+});
         });
     });
 
@@ -540,5 +590,6 @@ void loop() {
 
 </body>
 </html>
+
 
 
