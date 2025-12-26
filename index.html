@@ -492,21 +492,21 @@ void loop() {
 </div>
 
 <script>
-    // スプラッシュ解除
-    window.addEventListener("load", () => {
-        setTimeout(() => {
-            document.getElementById("splash").classList.add("is-hidden");
-        }, 2000);
-    });
+   // スプラッシュ解除
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("splash").classList.add("is-hidden");
+    }, 2000);
+});
 
-    // ナビバー透明化制御
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        navbar.classList.toggle('transparent', window.scrollY < 50);
-    });
+// ナビバー透明化制御
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    navbar.classList.toggle('transparent', window.scrollY < 50);
+});
 
-    // 360 ビューア
-    document.addEventListener('DOMContentLoaded', () => {
+// 360 ビューア
+document.addEventListener('DOMContentLoaded', () => {
     const viewer = document.getElementById('viewer');
     if (!viewer) return;
 
@@ -517,39 +517,28 @@ void loop() {
     let startX = 0;
     let startImageIndex = 0;
 
-    // 感度調整（数値が小さいほど少しの移動で回転します）
     const sensitivity = 10; 
 
-    // 画像を切り替える関数
     function showImage(index) {
         images[current].classList.remove('active');
-        // ループ処理（負の数にも対応）
         current = (index % totalImages + totalImages) % totalImages;
         images[current].classList.add('active');
     }
 
-    // イベント開始（マウス・タッチ共通）
     function handleStart(e) {
         isDragging = true;
-        // タッチかマウスか判定してX座標を取得
         startX = e.pageX || e.touches[0].pageX;
         startImageIndex = current;
         viewer.style.cursor = 'grabbing';
     }
 
-    // イベント中（マウス・タッチ共通）
     function handleMove(e) {
         if (!isDragging) return;
-
-        // タッチ操作時の画面スクロールを防止
         if (e.type === 'touchmove') {
             e.preventDefault();
         }
-
         const currentX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
         const diffX = currentX - startX;
-        
-        // 移動距離に応じて表示する画像のインデックスを計算
         const imageDelta = Math.floor(diffX / sensitivity);
         const nextIndex = startImageIndex - imageDelta;
 
@@ -558,38 +547,34 @@ void loop() {
         }
     }
 
-    // イベント終了（マウス・タッチ共通）
     function handleEnd() {
         isDragging = false;
         viewer.style.cursor = 'ew-resize';
     }
 
-    // マウスイベントの登録
     viewer.addEventListener('mousedown', handleStart);
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('mouseup', handleEnd);
 
-    // タッチイベントの登録（スマホ・タブレット用）
     viewer.addEventListener('touchstart', handleStart, { passive: false });
     viewer.addEventListener('touchmove', handleMove, { passive: false });
     viewer.addEventListener('touchend', handleEnd);
 });
-        });
-    });
 
-    // FAQ アコーディオン
-    document.querySelectorAll('.accordion-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const expanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !expanded);
-            const content = button.nextElementSibling;
-            content.style.maxHeight = !expanded ? content.scrollHeight + "px" : "0";
-        });
+// FAQ アコーディオン
+document.querySelectorAll('.accordion-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', !expanded);
+        const content = button.nextElementSibling;
+        content.style.maxHeight = !expanded ? content.scrollHeight + "px" : "0";
     });
+});
 </script>
 
 </body>
 </html>
+
 
 
 
